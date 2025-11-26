@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://7watvowefsqd"]
+
+[ext_resource type="Texture2D" uid="uid://csrj2w58wfrbo" path="res://assets/obstacles/saw.png" id="1_k45r4"]
+[ext_resource type="Script" uid="uid://c24mg422228xu" path="res://scripts/saw.gd" id="1_kprxg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kprxg"]
+radius = 28.01785
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_846d5"]
+radius = 36.05551
+
+[node name="Saw" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 0
+mass = 0.1
+gravity_scale = 0.1
+script = ExtResource("1_kprxg")
+far_off = 2000
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -1
+texture = ExtResource("1_k45r4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_kprxg")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_846d5")
+debug_color = Color(0.8385163, 0.31372145, 0.58051693, 0.41960785)

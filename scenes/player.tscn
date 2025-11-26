@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://bmyg88vray678"]
+
+[ext_resource type="Texture2D" uid="uid://qkrs5bbjbo5w" path="res://assets/character/character_purple_front.png" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://02scc3cpryo4" path="res://scripts/PlayerController.gd" id="1_g2els"]
+[ext_resource type="AudioStream" uid="uid://dy67e64vxr4n2" path="res://assets/sounds/sfx_hurt.ogg" id="3_dqkch"]
+[ext_resource type="AudioStream" uid="uid://rdd4u384w61o" path="res://assets/sounds/sfx_jump.ogg" id="4_qlg0r"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g2els"]
+radius = 21.0
+height = 78.0
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_g2els")
+gravity = 1200
+jump_velocity = 800
+speed = 300
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -14)
+texture = ExtResource("1_3vyb7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 11)
+shape = SubResource("CapsuleShape2D_g2els")
+
+[node name="Coyote" type="Timer" parent="."]
+wait_time = 0.15
+
+[node name="HitTimer" type="Timer" parent="."]
+wait_time = 1.25
+one_shot = true
+
+[node name="Hurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_dqkch")
+volume_db = -4.0
+
+[node name="Jump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_qlg0r")
+
+[connection signal="timeout" from="Coyote" to="." method="_on_coyote_timeout"]
+[connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout"]
